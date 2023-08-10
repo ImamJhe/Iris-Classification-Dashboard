@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Iris Classification Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body class="light">
+    <div class="container">
+        <div class="header">
+            <h2>
+                Iris Classification Dashboard
+                <label class="switch">
+                    <input type="checkbox" id="theme-toggle">
+                    <span class="slider round"></span>
+                </label>
+            </h2>
+        </div>
+        <form action="/predict" method="post">
+            <label for="sepal_length">Sepal Length:</label>
+            <input type="number" step="any" name="sepal_length"><br>
+
+            <label for="sepal_width">Sepal Width:</label>
+            <input type="number" step="any" name="sepal_width"><br>
+
+            <label for="petal_length">Petal Length:</label>
+            <input type="number" step="any" name="petal_length"><br>
+
+            <label for="petal_width">Petal Width:</label>
+            <input type="number" step="any" name="petal_width"><br>
+
+            <!-- Hidden input field for the theme -->
+            <input type="hidden" name="theme" value="light" id="theme-input">
+            <input type="submit" value="Predict">
+        </form>
+
+        <h3>Prediction Result:</h3>
+        <p>{{ prediction }}</p>
+    </div>
+
+    <script>
+        const themeToggle = document.getElementById('theme-toggle');
+        themeToggle.addEventListener('change', () => {
+            document.body.classList.toggle('dark');
+            document.body.classList.toggle('light');
+
+            const themeInput = document.getElementById('theme-input');
+            themeInput.value = document.body.classList.contains('dark') ? 'dark' : 'light';
+        });
+    </script>
+</body>
+</html>
